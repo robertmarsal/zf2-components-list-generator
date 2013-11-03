@@ -79,6 +79,8 @@ if(!empty($components)) {
         }
 
         file_put_contents($opts->c, json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+        $console->writeLine($opts->c . ' updated', Color::YELLOW);
     } else {
         // Print the components list to the standard output
         $console->writeLine('Replace "zendframework/zendframework" in your composer.json file with :', Color::YELLOW);
