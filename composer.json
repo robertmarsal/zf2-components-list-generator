@@ -1,0 +1,26 @@
+{
+    "name": "robertboloc/zf2-components-list-generator",
+    "type": "library",
+    "description": "Generate a list of Zend Framework 2 components used by a library",
+    "keywords": [
+        "zf2",
+        "generator",
+        "components"
+    ],
+    "homepage": "https://github.com/robertboloc/https://github.com/robertboloc/zf2-components-list-generator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robert Boloc",
+            "email": "robertboloc@gmail.com",
+            "homepage": "http://robertboloc.eu",
+            "role": "Developer"
+        }
+    ],
+    "bin": [
+        "zf2_components_list_generator.php"
+    ],
+    "require": {
+        "zendframework/zend-console": "2.*"
+    }
+}
