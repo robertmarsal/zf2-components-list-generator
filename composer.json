@@ -20,7 +20,15 @@
     "bin": [
         "zf2_components_list_generator.php"
     ],
+    "autoload": {
+        "psr-0": {
+            "Rb": "src/"
+        }
+    },
     "require": {
         "zendframework/zend-console": "2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=3.7"
     }
 }
