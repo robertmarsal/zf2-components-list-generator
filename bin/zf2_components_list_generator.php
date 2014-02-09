@@ -9,6 +9,8 @@ if(file_exists(__DIR__ . '/../vendor/autoload.php')) {
     exit(1);
 }
 
+use Zend\Console\Console;
+use Zend\Console\ColorInterface as Color;
 use Rb\Generator\Zf2ComponentsList as Zf2ComponentsListGenerator;
 
 // Obtain console params (inspired by https://github.com/weierophinney/changelog_generator/blob/master/changelog_generator.php)
@@ -34,8 +36,19 @@ $zf2ComponentsListGenerator = new Zf2ComponentsListGenerator();
 
 $components = $zf2ComponentsListGenerator->scan($opts->p);
 
-if(isset($opts->c)) {
-    $components->toFile($opts->c);
+$console = Console::getInstance();
+
+if(!empty($components->getComponents())) {
+    if(isset($opts->c)) {
+        if(!is_file($file)) {
+            $console->writeLine($file . ' file does not exist!');
+        } else {
+            $components->toFile($opts->c);
+            $console->writeLine($file . ' updated', Color::YELLOW);
+        }
+    } else {
+        $components->toConsole();
+    }
 } else {
-    $components->toConsole();
+    $console->writeLine('No Zend Framework 2 components found!', Color::GRAY);
 }

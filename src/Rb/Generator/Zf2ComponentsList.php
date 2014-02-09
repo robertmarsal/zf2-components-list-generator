@@ -7,21 +7,26 @@ use Zend\Console\ColorInterface as Color;
 
 class Zf2ComponentsList
 {
+    /**
+     * Console instance for printing output.
+     *
+     * @var \Zend\Console\Console
+     */
 	protected $console;
 
+    /**
+     * Contains the scanned components.
+     *
+     * @var array
+     */
 	protected $components = array();
-
-	public function __construct()
-	{
-		$this->console = Console::getInstance();
-	}
 
 	public function scan($project)
 	{
 		//@TODO: allow scan of individual files
 		// First check if target is a directory
 		if(!is_dir($project)) {
-			$this->console->writeLine($project . ' is not a directory!');
+			$this->getConsole()->writeLine($project . ' is not a directory!');
 			return $this;
 		}
 
@@ -57,15 +62,6 @@ class Zf2ComponentsList
 
 	public function toFile($file)
 	{
-		if(empty($this->components)) {
-			return false;
-		}
-
-        if(!is_file($file)) {
-            $this->console->writeLine($file . ' file does not exist!');
-            return false;
-        }
-
         $composer = json_decode(file_get_contents($file), true);
 
         // Remove the zendframework/zendframework
@@ -77,17 +73,14 @@ class Zf2ComponentsList
         }
 
         file_put_contents($file, json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-
-        $this->console->writeLine($file . ' updated', Color::YELLOW);
 	}
 
 	public function toConsole()
 	{
-		if(empty($this->components)) {
-			return false;
-		}
-
-        $this->console->writeLine('Replace "zendframework/zendframework" in your composer.json file with :', Color::YELLOW);
+        $this->getConsole()->writeLine(
+            'Replace "zendframework/zendframework" in your composer.json file with :',
+            Color::YELLOW
+        );
         $componentsCount = count($this->components);
         $count = 0;
         foreach(array_keys($this->components) as $component) {
@@ -97,7 +90,31 @@ class Zf2ComponentsList
             if($count < $componentsCount) {
                 $suffix = ',';
             }
-            $this->console->writeLine('"zendframework/' . $component . '": "2.*"' . $suffix);
+            $this->getConsole()->writeLine('"zendframework/' . $component . '": "2.*"' . $suffix);
         }
 	}
+
+    /**
+     * Returns the current list of found components.
+     *
+     * @return array
+     */
+    public function getComponents()
+    {
+        return $this->components;
+    }
+
+    /**
+     * Returns an instance of the console, if one does not already exist.
+     *
+     * @return \Zend\Console\Console
+     */
+    public function getConsole()
+    {
+        if(!$this->console) {
+            $this->console = Console::getInstance();
+        }
+
+        return $this->console;
+    }
 }
