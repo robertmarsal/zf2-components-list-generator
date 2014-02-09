@@ -1,13 +1,23 @@
-Generates a list of Zend Framework 2 components used by a project.  
+# zf2-components-list-generator
+[![Build Status](https://travis-ci.org/robertboloc/zf2-components-list-generator.png?branch=master)](https://travis-ci.org/robertboloc/zf2-components-list-generator)
+[![Total Downloads](https://poser.pugx.org/robertboloc/zf2-components-list-generator/downloads.png)](https://packagist.org/packages/robertboloc/zf2-components-list-generator)
+[![License](https://poser.pugx.org/robertboloc/zf2-components-list-generator/license.png)](https://packagist.org/packages/robertboloc/zf2-components-list-generator)
+
+Generates a list of Zend Framework 2 components used by a project.
 
 In your `composer.json` file instead of using `"zendframework/zendframework" : "2.*"` and so requiring the whole framework,
-use this script to get a list of used components, and require only those. Better yet, specify your composer file and the 
+use this script to get a list of used components, and require only those. Better yet, specify your composer file and the
 script will replace your `"zendframework/zendframework" : "2.*"` with the components used by your application.
 
-For more info on why you should do this in your module/application read 
+For more info on why you should do this in your module/application read
 [this blog post](http://www.michaelgallego.fr/blog/2013/01/21/some-tips-to-write-better-zend-framework-2-modules/#only-set-dependencies-on-what-you-require).
 
-#### Installation
+## Table of contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
+
+## Installation
 
 1. Add this package to your `composer.json` file, in the `require-dev` section
 ```json
@@ -22,12 +32,12 @@ For more info on why you should do this in your module/application read
 
 This will install the script into `vendor/bin/zf2_components_list_generator.php`
 
-#### Usage
+## Usage
 
-Execute the CLI script providing some/all of the following options : 
+Execute the CLI script providing some/all of the following options :
 
-**--help | -h** Get usage information.  
-**--project | -p** Path of the project to be scanned.  
+**--help | -h** Get usage information.
+**--project | -p** Path of the project to be scanned.
 **--composer | -c** Path to the composer.json file to be updated. If not specified the output will be printed to the standard output.
 
 For example calling the script using only the `-p` option:
@@ -47,8 +57,13 @@ Replace "zendframework/zendframework" in your composer.json file with :
 "zendframework/zend-loader": "2.*",
 "zendframework/zend-stdlib": "2.*"
 ```
-You can copy and paste this information directly into your composer file.  
+You can copy and paste this information directly into your composer file.
 If the `-c` option was used, the composer file will be updated automatically and the message will be :
 ```php
 /projects/MyProject/composer.json updated
 ```
+
+## Roadmap
+
+* Detect canonicalized components
+* Place the dependencies found under a `\*/Test/\*` namespace into the `require-dev` section
