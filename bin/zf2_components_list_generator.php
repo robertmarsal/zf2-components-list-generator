@@ -44,11 +44,11 @@ $console = Console::getInstance();
 
 if(!empty($components->getComponents())) {
     if(isset($opts->c)) {
-        if(!is_file($file)) {
-            $console->writeLine($file . ' file does not exist!');
+        if(!is_file($opts->c)) {
+            $console->writeLine($opts->c . ' file does not exist!');
         } else {
             $components->toFile($opts->c);
-            $console->writeLine($file . ' updated', Color::YELLOW);
+            $console->writeLine($opts->c . ' updated', Color::YELLOW);
         }
     } else {
         $components->toConsole();
