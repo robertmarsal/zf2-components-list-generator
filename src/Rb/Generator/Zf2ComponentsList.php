@@ -7,6 +7,8 @@ use Zend\Console\ColorInterface as Color;
 
 class Zf2ComponentsList
 {
+    const CURRENT_VERSION = '2.3.*';
+
     /**
      * Console instance for printing output.
      *
@@ -21,6 +23,12 @@ class Zf2ComponentsList
      */
     protected $components = array();
 
+    /**
+     * Scans a directory (recursive) and obtains a list of Zend\* components.
+     *
+     * @param string $project
+     * @return \Rb\Generator\Zf2ComponentsList
+     */
     public function scan($project)
     {
         //@TODO: allow scan of individual files
@@ -39,6 +47,7 @@ class Zf2ComponentsList
 
         foreach ($regexIterator as $fileMatches) {
             foreach ($fileMatches as $fileMatch) {
+                var_dump($fileMatch);
                 $fileContent = file_get_contents($fileMatch);
 
                 preg_match_all('/Zend\\\\[a-zA-Z0-9]*/', (string) $fileContent, $matches, PREG_PATTERN_ORDER);
@@ -59,6 +68,11 @@ class Zf2ComponentsList
         return $this;
     }
 
+    /**
+     * Updates the composer.json file with the new components list.
+     *
+     * @param string $file
+     */
     public function toFile($file)
     {
         $composer = json_decode(file_get_contents($file), true);
@@ -68,12 +82,15 @@ class Zf2ComponentsList
 
         // Add all the found components
         foreach (array_keys($this->components) as $component) {
-            $composer['require']['zendframework/' . $component] = '2.*';
+            $composer['require']['zendframework/' . $component] = self::CURRENT_VERSION;
         }
 
         file_put_contents($file, json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
 
+    /**
+     * Sends the components list to the console.
+     */
     public function toConsole()
     {
         $this->getConsole()->writeLine(
@@ -81,6 +98,7 @@ class Zf2ComponentsList
         );
         $componentsCount = count($this->components);
         $count = 0;
+
         foreach (array_keys($this->components) as $component) {
             $suffix = '';
 
@@ -88,7 +106,7 @@ class Zf2ComponentsList
             if ($count < $componentsCount) {
                 $suffix = ',';
             }
-            $this->getConsole()->writeLine('"zendframework/' . $component . '": "2.*"' . $suffix);
+            $this->getConsole()->writeLine('"zendframework/' . $component . '": ' . self::CURRENT_VERSION . $suffix);
         }
     }
 
@@ -115,5 +133,4 @@ class Zf2ComponentsList
 
         return $this->console;
     }
-
 }
