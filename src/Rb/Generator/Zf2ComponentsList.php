@@ -4,6 +4,8 @@ namespace Rb\Generator;
 
 use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 
 class Zf2ComponentsList
 {
@@ -24,6 +26,27 @@ class Zf2ComponentsList
     protected $components = array();
 
     /**
+     * Current Zend Framework 2 version to use.
+     *
+     * @var string
+     */
+    protected $version;
+
+    /**
+     * Creates a new instance
+     *
+     * @param array $options
+     */
+    public function __construct(array $options = array())
+    {
+        if (isset($options['version'])) {
+            $this->version = $options['version'];
+        } else {
+            $this->version = self::CURRENT_VERSION;
+        }
+    }
+
+    /**
      * Scans a directory (recursive) and obtains a list of Zend\* components.
      *
      * @param string $project
@@ -38,8 +61,7 @@ class Zf2ComponentsList
             return $this;
         }
 
-        $directoryIterator = new \RecursiveDirectoryIterator($project);
-        $iteratorIterator = new \RecursiveIteratorIterator($directoryIterator);
+        $iteratorIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($project));
 
         //@TODO: make ignored paths a param
         // Exclude the paths containing vendor and non-php files
@@ -47,7 +69,7 @@ class Zf2ComponentsList
 
         foreach ($regexIterator as $fileMatches) {
             foreach ($fileMatches as $fileMatch) {
-                var_dump($fileMatch);
+
                 $fileContent = file_get_contents($fileMatch);
 
                 preg_match_all('/Zend\\\\[a-zA-Z0-9]*/', (string) $fileContent, $matches, PREG_PATTERN_ORDER);
@@ -82,7 +104,7 @@ class Zf2ComponentsList
 
         // Add all the found components
         foreach (array_keys($this->components) as $component) {
-            $composer['require']['zendframework/' . $component] = self::CURRENT_VERSION;
+            $composer['require']['zendframework/' . $component] = $this->version;
         }
 
         file_put_contents($file, json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
@@ -106,7 +128,7 @@ class Zf2ComponentsList
             if ($count < $componentsCount) {
                 $suffix = ',';
             }
-            $this->getConsole()->writeLine('"zendframework/' . $component . '": ' . self::CURRENT_VERSION . $suffix);
+            $this->getConsole()->writeLine('"zendframework/' . $component . '": "' . $this->version . '"' . $suffix);
         }
     }
 

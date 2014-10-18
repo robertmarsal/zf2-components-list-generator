@@ -20,9 +20,10 @@ use Rb\Generator\Zf2ComponentsList as Zf2ComponentsListGenerator;
 // Obtain console params (inspired by https://github.com/weierophinney/changelog_generator/blob/master/changelog_generator.php)
 try {
     $opts = new Zend\Console\Getopt(array(
-        'help|h'    => 'Help',
-        'project|p-s' => 'Project to scan for Zend Framework 2 components',
+        'help|h'       => 'Help',
+        'project|p-s'  => 'Project to scan for Zend Framework 2 components',
         'composer|c-s' => 'Composer file to update',
+        'version|v-s'  => 'Zend Framework 2 version to use'
     ));
     $opts->parse();
 } catch (Zend\Console\Exception\ExceptionInterface $e) {
@@ -36,7 +37,14 @@ if(isset($opts->h) || $opts->toArray() == array()) {
     exit(0);
 }
 
-$zf2ComponentsListGenerator = new Zf2ComponentsListGenerator();
+// Create options
+$options = array();
+
+if (isset($opts->v)) {
+    $options['version'] = $opts->v;
+}
+
+$zf2ComponentsListGenerator = new Zf2ComponentsListGenerator($options);
 
 $components = $zf2ComponentsListGenerator->scan($opts->p);
 

@@ -5,9 +5,9 @@
 
 Generates a list of Zend Framework 2 components used by a project.
 
-In your `composer.json` file instead of using `"zendframework/zendframework" : "2.*"` and so requiring the whole framework,
+In your `composer.json` file instead of using `"zendframework/zendframework" : "2.3.*"` and so requiring the whole framework,
 use this script to get a list of used components, and require only those. Better yet, specify your composer file and the
-script will replace your `"zendframework/zendframework" : "2.*"` with the components used by your application.
+script will replace your `"zendframework/zendframework" : "2.3.*"` with the components used by your application.
 
 For more info on why you should do this in your module/application read
 [this blog post](http://www.michaelgallego.fr/blog/2013/01/21/some-tips-to-write-better-zend-framework-2-modules/#only-set-dependencies-on-what-you-require).
@@ -39,6 +39,7 @@ Execute the CLI script providing some/all of the following options :
 **--help | -h** Get usage information.
 **--project | -p** Path of the project to be scanned.
 **--composer | -c** Path to the composer.json file to be updated. If not specified the output will be printed to the standard output.
+**--version | -v** Use a specific version for the output.
 
 For example calling the script using only the `-p` option:
 ```php
@@ -48,14 +49,14 @@ php vendor/bin/zf2_components_list_generator.php -p /projects/MyProject/
 Will output something like:
 ```php
 Replace "zendframework/zendframework" in your composer.json file with :
-"zendframework/zend-mvc": "2.*",
-"zendframework/zend-form": "2.*",
-"zendframework/zend-db": "2.*",
-"zendframework/zend-inputfilter": "2.*",
-"zendframework/zend-view": "2.*",
-"zendframework/zend-servicemanager": "2.*",
-"zendframework/zend-loader": "2.*",
-"zendframework/zend-stdlib": "2.*"
+"zendframework/zend-mvc": "2.3.*",
+"zendframework/zend-form": "2.3.*",
+"zendframework/zend-db": "2.3.*",
+"zendframework/zend-inputfilter": "2.3.*",
+"zendframework/zend-view": "2.3.*",
+"zendframework/zend-servicemanager": "2.3.*",
+"zendframework/zend-loader": "2.3.*",
+"zendframework/zend-stdlib": "2.3.*"
 ```
 You can copy and paste this information directly into your composer file.
 If the `-c` option was used, the composer file will be updated automatically and the message will be :
@@ -66,4 +67,3 @@ If the `-c` option was used, the composer file will be updated automatically and
 ## Roadmap
 
 * Detect canonicalized components
-* Place the dependencies found under a `\*/Test/\*` namespace into the `require-dev` section
