@@ -36,10 +36,10 @@ This will install the script into `vendor/bin/zf2_components_list_generator.php`
 
 Execute the CLI script providing some/all of the following options :
 
-**--help | -h** Get usage information.
-**--project | -p** Path of the project to be scanned.
-**--composer | -c** Path to the composer.json file to be updated. If not specified the output will be printed to the standard output.
-**--version | -v** Use a specific version for the output.
+**--help | -h** Get usage information.  
+**--project | -p** Path of the project to be scanned.  
+**--composer | -c** Path to the composer.json file to be updated. If not specified the output will be printed to the standard output.  
+**--version | -v** Use a specific version for the output.  
 
 For example calling the script using only the `-p` option:
 ```php
