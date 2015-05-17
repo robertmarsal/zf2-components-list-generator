@@ -9,7 +9,7 @@ use RecursiveDirectoryIterator;
 
 class Zf2ComponentsList
 {
-    const CURRENT_VERSION = '2.3.*';
+    const CURRENT_VERSION = '2.4.*';
 
     /**
      * Console instance for printing output.

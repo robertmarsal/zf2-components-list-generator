@@ -21,8 +21,9 @@
         "bin/zf2_components_list_generator.php"
     ],
     "autoload": {
-        "psr-0": {
-            "Rb": "src/"
+        "psr-4": {
+            "Rb\\Generator\\": "src/",
+            "RbTest\\Generator\\": "tests/"
         }
     },
     "require": {
