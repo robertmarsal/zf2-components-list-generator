@@ -23,7 +23,7 @@
     "autoload": {
         "psr-4": {
             "Rb\\Generator\\": "src/",
-            "RbTest\\Generator\\": "tests/"
+            "RbTest\\Generator\\": "test/"
         }
     },
     "require": {
