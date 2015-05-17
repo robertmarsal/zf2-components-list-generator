@@ -56,11 +56,11 @@ if (!empty($components)) {
         if (!is_file($opts->c)) {
             $console->writeLine($opts->c . ' file does not exist!');
         } else {
-            $components->toFile($opts->c);
+            $generator->toFile($opts->c);
             $console->writeLine($opts->c . ' updated', Color::YELLOW);
         }
     } else {
-        $components->toConsole();
+        $generator->toConsole();
     }
 } else {
     $console->writeLine('No Zend Framework 2 components found!', Color::GRAY);
