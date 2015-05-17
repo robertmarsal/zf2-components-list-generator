@@ -1,12 +1,12 @@
 <?php
 
-if(file_exists(__DIR__ . '/../autoload.php')) {
+if (file_exists(__DIR__ . '/../autoload.php')) {
     require_once __DIR__ . '/../autoload.php';
-} else if(file_exists(__DIR__ . '/../../../autoload.php')) {
+} elseif(file_exists(__DIR__ . '/../../../autoload.php')) {
     require_once __DIR__ . '/../../../autoload.php';
-} else if(file_exists(__DIR__ . '/../vendor/autoload.php')) {
+} elseif(file_exists(__DIR__ . '/../vendor/autoload.php')) {
     require_once __DIR__ . '/../vendor/autoload.php';
-} else if(file_exists(__DIR__ . '/../../../vendor/autoload.php')) {
+} elseif(file_exists(__DIR__ . '/../../../vendor/autoload.php')) {
     require_once __DIR__ . '/../../../vendor/autoload.php';
 } else {
     file_put_contents('php://stderr', 'Failed to load dependencies. Did you run composer install/update?');
@@ -32,7 +32,7 @@ try {
 }
 
 // Print help message if asked or nothing is asked
-if(isset($opts->h) || $opts->toArray() == array()) {
+if (isset($opts->h) || $opts->toArray() == array()) {
     file_put_contents('php://stdout', $opts->getUsageMessage());
     exit(0);
 }
@@ -46,20 +46,21 @@ if (isset($opts->v)) {
 
 $zf2ComponentsListGenerator = new Zf2ComponentsListGenerator($options);
 
-$components = $zf2ComponentsListGenerator->scan($opts->p);
+$generator  = $zf2ComponentsListGenerator->scan($opts->p);
+$components = $generator->getComponents();
 
 $console = Console::getInstance();
 
-if(!empty($components->getComponents())) {
-    if(isset($opts->c)) {
-        if(!is_file($opts->c)) {
+if (!empty($components)) {
+    if (isset($opts->c)) {
+        if (!is_file($opts->c)) {
             $console->writeLine($opts->c . ' file does not exist!');
         } else {
-            $components->toFile($opts->c);
+            $generator->toFile($opts->c);
             $console->writeLine($opts->c . ' updated', Color::YELLOW);
         }
     } else {
-        $components->toConsole();
+        $generator->toConsole();
     }
 } else {
     $console->writeLine('No Zend Framework 2 components found!', Color::GRAY);

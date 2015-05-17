@@ -7,4 +7,3 @@ php:
 before_script:
   - composer self-update
   - composer update
-  - cd tests/

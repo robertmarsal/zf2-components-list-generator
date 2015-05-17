@@ -1,11 +1,6 @@
 <?php
 
-/**
- * @author Robert Boloc <robert.boloc@urv.cat>
- * @copyright 2013 Servei de Recursos Educatius (http://www.sre.urv.cat)
- */
-
-namespace RbTests\Generator;
+namespace RbTest\Generator;
 
 use Rb\Generator\Zf2ComponentsList as Zf2ComponentsListGenerator;
 use PHPUnit_Framework_TestCase;
