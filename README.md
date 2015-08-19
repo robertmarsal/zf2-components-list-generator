@@ -5,9 +5,9 @@
 
 Generates a list of Zend Framework 2 components used by a project.
 
-In your `composer.json` file instead of using `"zendframework/zendframework" : "2.4.*"` and so requiring the whole framework,
+In your `composer.json` file instead of using `"zendframework/zendframework" : "2.5.*"` and so requiring the whole framework,
 use this script to get a list of used components, and require only those. Better yet, specify your composer file and the
-script will replace your `"zendframework/zendframework" : "2.4.*"` with the components used by your application.
+script will replace your `"zendframework/zendframework" : "2.5.*"` with the components used by your application.
 
 For more info on why you should do this in your module/application read
 [this blog post](http://www.michaelgallego.fr/blog/2013/01/21/some-tips-to-write-better-zend-framework-2-modules/#only-set-dependencies-on-what-you-require).
@@ -49,14 +49,14 @@ php vendor/bin/zf2_components_list_generator.php -p /projects/MyProject/
 Will output something like:
 ```php
 Replace "zendframework/zendframework" in your composer.json file with :
-"zendframework/zend-mvc": "2.4.*",
-"zendframework/zend-form": "2.4.*",
-"zendframework/zend-db": "2.4.*",
-"zendframework/zend-inputfilter": "2.4.*",
-"zendframework/zend-view": "2.4.*",
-"zendframework/zend-servicemanager": "2.4.*",
-"zendframework/zend-loader": "2.4.*",
-"zendframework/zend-stdlib": "2.4.*"
+"zendframework/zend-mvc": "2.5.*",
+"zendframework/zend-form": "2.5.*",
+"zendframework/zend-db": "2.5.*",
+"zendframework/zend-inputfilter": "2.5.*",
+"zendframework/zend-view": "2.5.*",
+"zendframework/zend-servicemanager": "2.5.*",
+"zendframework/zend-loader": "2.5.*",
+"zendframework/zend-stdlib": "2.5.*"
 ```
 You can copy and paste this information directly into your composer file.
 If the `-c` option was used, the composer file will be updated automatically and the message will be :
