@@ -1,5 +1,4 @@
 <?php
-
 namespace RbTest\Generator;
 
 use Rb\Generator\Zf2ComponentsList as Zf2ComponentsListGenerator;
@@ -13,7 +12,7 @@ class Zf2ComponentsListTest extends PHPUnit_Framework_TestCase
     {
         $zf2ComponentsListGenerator = new Zf2ComponentsListGenerator();
 
-        $this->assertEquals(
+        $this->assertSame(
             $zf2ComponentsListGenerator->scan(__DIR__ . '/' . self::TEST_PROJECT)
                                        ->getComponents(),
             array(
@@ -22,10 +21,10 @@ class Zf2ComponentsListTest extends PHPUnit_Framework_TestCase
                 "zend-cache"          => true,
                 "zend-captcha"        => true,
                 "zend-code"           => true,
-                "zend-console"        => true,
-                "zend-stdlib"         => true,
-                "zend-log"            => true,
                 "zend-config"         => true,
+                "zend-console"        => true,
+                "zend-log"            => true,
+                "zend-stdlib"         => true,
             )
         );
     }

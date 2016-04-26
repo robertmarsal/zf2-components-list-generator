@@ -87,6 +87,8 @@ class Zf2ComponentsList
             }
         }
 
+        ksort($this->components);
+
         return $this;
     }
 
